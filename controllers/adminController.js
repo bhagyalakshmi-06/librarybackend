@@ -1,3 +1,5 @@
+const mongoose = require("mongoose"); // ✅ ADD THIS
+
 const Book = require("../models/Book");
 const User = require("../models/User");
 
@@ -66,6 +68,14 @@ exports.updateBookStatus = async (req, res) => {
       { new: true }
     );
     res.json(book);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+exports.deleteBook = async (req, res) => {
+  try {
+    await Book.findByIdAndDelete(req.params.id);
+    res.json({ message: "Book deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

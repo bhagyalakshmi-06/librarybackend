@@ -12,4 +12,4 @@ router.get("/:id", bookController.getBookById);
 // Update book (admin or rental status)
 router.put("/:id", bookController.updateBook);
 
-module.exports = router;
+module.exports = {router};

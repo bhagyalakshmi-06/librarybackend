@@ -1,12 +1,12 @@
 const express = require("express");
-const { registerUser, loginUser } = require("../controllers/authController");
+const { registerUser, login } = require("../controllers/authController"); // <-- use 'login'
 
 const router = express.Router();
 
 // Register new user
 router.post("/register", registerUser);
 
-// Login user
-router.post("/login", loginUser);
+// Unified login (admin + user)
+router.post("/login", login);
 
-module.exports = router;
+module.exports = {router};

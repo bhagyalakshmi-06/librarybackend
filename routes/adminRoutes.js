@@ -7,5 +7,7 @@ router.get("/users", adminController.getUsers);
 router.get("/books", adminController.getBooks);
 router.post("/books", adminController.addBook);
 router.put("/books/:id", adminController.updateBookStatus);
+router.delete("/books/:id", adminController.deleteBook);
 
-module.exports = router;
+
+module.exports = {router};

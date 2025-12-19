@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+// User authentication
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -23,5 +24,18 @@ const authMiddleware = async (req, res, next) => {
     res.status(401).json({ message: "Invalid token" });
   }
 };
+//admin auth middleware
+const adminAuthMiddleware = async (req, res, next) => {
+  try {
+    await authMiddleware(req, res, async () => {
+      if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Admins only" });
+      }
+      next();
+    });
+  } catch (error) {
+    res.status(401).json({ message: "Invalid admin token" });
+  }
+};
 
-module.exports = authMiddleware;
+module.exports = { authMiddleware,adminAuthMiddleware };
